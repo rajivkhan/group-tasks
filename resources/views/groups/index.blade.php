@@ -34,6 +34,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Slug</th>
                             <th>Description</th>
                             <th class="text-right no-sort">Action</th>
                         </tr>
@@ -45,6 +46,7 @@
                         <tr>
 
                             <td>{{ $group->name }}</td>
+                            <td>{{ $group->slug }}</td>
                             <td>{{ $group->description }}</td>
 
                             <td class="text-right">

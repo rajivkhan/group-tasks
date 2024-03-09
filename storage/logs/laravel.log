@@ -5908,3 +5908,7 @@
 [stacktrace]
 #0 {main}
 "} 
+[2024-03-09 06:07:26] local.ERROR: Trait "App\Traits\CommonEventObserver" not found {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Trait \"App\\Traits\\CommonEventObserver\" not found at /opt/lampp/htdocs/group-tasks/app/Models/Account.php:9)
+[stacktrace]
+#0 {main}
+"} 

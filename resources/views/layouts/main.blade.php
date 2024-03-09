@@ -327,11 +327,20 @@
 									<li><a href="#">Admin Dashboard</a></li>
 								</ul>
 							</li>
+							<li>
+								<a href="{{ route('statuses.index')}}"><i class="la la-users"></i> <span>Statuses</span></a>
+							</li>
                             <li>
 								<a href="{{ route('users.index')}}"><i class="la la-users"></i> <span>Users</span></a>
 							</li>
                             <li>
 								<a href="{{ route('groups.index')}}"><i class="la la-users"></i> <span>Groups</span></a>
+							</li>
+                            <li>
+								<a href="{{ route('group-members.index')}}"><i class="la la-users"></i> <span>Group Members</span></a>
+							</li>
+                            <li>
+								<a href="{{ route('groups.index')}}"><i class="la la-users"></i> <span>Group Tasks</span></a>
 							</li>
 						</ul>
 					</div>

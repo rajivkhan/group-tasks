@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card mb-0">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Groups</h4>
+                    <h4 class="card-title mb-0">Create Group</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('groups.store') }}" method="post" enctype="multipart/form-data">
@@ -27,6 +27,19 @@
                                     <input type="text" class="form-control" name="slug" placeholder="slug">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user">Users:</label>
+                            <select name="user_ids[]" id="user" class="form-control" multiple>
+                                <option>Choose one...</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">
+                                        {{ $user->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
                         </div>
 
                         <div class="form-group">

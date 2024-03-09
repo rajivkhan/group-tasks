@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Status;
 use App\Models\GroupMember;
 use Illuminate\Http\Request;
 
@@ -12,7 +15,8 @@ class GroupMemberController extends Controller
      */
     public function index()
     {
-        //
+        $groupMembers = GroupMember::orderBy('created_at', 'DESC')->paginate(10);
+        return view('group-members.index', compact(['groupMembers']));
     }
 
     /**
@@ -20,7 +24,10 @@ class GroupMemberController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::get(['id', 'name']);
+        $groups = Group::get(['id', 'name']);
+        $statuses = Status::get(['id', 'name']);
+        return view('group-members.create', compact(['users', 'groups', 'statuses']));
     }
 
     /**
@@ -28,7 +35,18 @@ class GroupMemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $groupMember = new GroupMember;
+
+        $groupMember->group_id = $request->input('group_id');
+        $groupMember->user_id = $request->input('user_id');
+        $groupMember->status_id = $request->input('status_id');
+        $groupMember->save();
+
+        session()->flash('message', 'Group Member created successfully!');
+        session()->flash('messageType', 'success');
+
+        return redirect()->route('group-members.index');
     }
 
     /**

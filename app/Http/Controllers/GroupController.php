@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -22,7 +23,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('groups.create');
+        $users = User::get(['id', 'name']);;
+        return view('groups.create', compact(['users']));
     }
 
     /**
@@ -30,12 +32,22 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+
         $group = new Group;
 
         $group->name = $request->input('name');
         $group->slug = $request->input('slug');
         $group->description = $request->input('description');
         $group->save();
+
+
+        // Get the selected user IDs from the request
+        $userIds = $request->input('user_ids', []);
+
+        // Attach the users to the group using sync()
+        $group->users()->sync($userIds);
+        
 
         session()->flash('message', 'Group created successfully!');
         session()->flash('messageType', 'success');
@@ -64,7 +76,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //return "testing";
         $group->name = $request->input('name');
         $group->slug = $request->input('slug');
         $group->description = $request->input('description');

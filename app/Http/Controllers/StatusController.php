@@ -12,7 +12,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $statuses = Status::orderBy('created_at', 'DESC')->paginate(10);
+        return view('statuses.index', compact(['statuses']));
     }
 
     /**
@@ -20,7 +21,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('statuses.create');
     }
 
     /**
@@ -28,7 +29,16 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status = new Status;
+
+        $status->name = $request->input('name');
+        $status->description = $request->input('description');
+        $status->save();
+
+        session()->flash('message', 'status created successfully!');
+        session()->flash('messageType', 'success');
+
+        return redirect()->route('statuses.index');
     }
 
     /**
@@ -44,7 +54,7 @@ class StatusController extends Controller
      */
     public function edit(Status $status)
     {
-        //
+        return view('statuses.edit', compact(['status']));
     }
 
     /**
@@ -52,7 +62,14 @@ class StatusController extends Controller
      */
     public function update(Request $request, Status $status)
     {
-        //
+        $status->name = $request->input('name');
+        $status->description = $request->input('description');
+        $status->update();
+
+        session()->flash('message', 'Status Updated successfully!');
+        session()->flash('messageType', 'info');
+
+        return redirect()->route('statuses.index');
     }
 
     /**
@@ -60,6 +77,11 @@ class StatusController extends Controller
      */
     public function destroy(Status $status)
     {
-        //
+        $status->delete();
+
+        session()->flash('message', 'Status Deleted successfully!');
+        session()->flash('messageType', 'danger');
+
+        return back();
     }
 }
